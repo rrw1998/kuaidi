@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}更新订单{% endblock %}
+{% block content %}
+    <style>
+        body {
+            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
+            background-size: 500% 500%;
+            transition: background 3s ease;
+            background-position: 50% 50%;
+        }
+    </style>
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-order' action="/update/" method="post">
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <h2 class="text-center">请添加订单</h2>
+                <div class="form-group">
+                    {{ order_form.good.label_tag }}
+                    {{ order_form.good }}
+                </div>
+                <div class="form-group">
+                    {{ order_form.gnum.label_tag }}
+                    {{ order_form.gnum }}
+                </div>
+                <div class="form-group">
+                    <label>地址:</label>
+                    <p></p>
+                    <select id="prov" name="prov">
+                        <option>请选择省份</option>
+                    </select>
+                    <select id="city" name="city">
+                        <option>请选择城市</option>
+                    </select>
+                    <select id="district" name="district">
+                        <option>请选择县区</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    {{ order_form.address.label_tag }}
+                    {{ order_form.address }}
+                </div>
+                <div class="form-group">
+                    {{ order_form.wl_ship.label_tag }}
+                    {{ order_form.wl_ship }}
+                </div>
+
+
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">提交</button>
+            </form>
+        </div>
+        <script type="text/javascript" src="/static/js/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript" src="/static/js/city.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var prov = $('#prov');
+                var city = $('#city');
+                var district = $('#district');
+                var currentProv = 0; //获取当前省份的索引值，用于获取当前省份的城市列表
+                var currentCity = 0;	//获取当前市的索引值，用用获取当前市的县区
+                /*
+                加载网页立即执行获取当前省份信息
+                */
+                (function showProv() {
+                    for (let i = 0; i < provice.length; i++) {
+                        prov.append('<option ' + 'value = ' + i + '>' + provice[i].name + '</option>');
+                    }
+                })();
+                /*
+                当省份改变时触发事件，获取当前省份的市列表
+                */
+                prov.change(function () {
+                    currentProv = $("#prov").find('option:selected').val();
+                    $("#city").html('<option>请选择城市</option>');
+                    $('#district').html('<option>请选择县区</option>');
+                    var cityLen = provice[currentProv].city.length;
+                    for (let i = 0; i < cityLen; i++) {
+                        city.append('<option ' + 'value = ' + i + '>' + provice[currentProv].city[i].name + '</option>')
+                    }
+                })
+                /*
+                当市改变城市触发事件，获取当前市的县区列表
+                */
+                city.change(function () {
+                    currentCity = $("#city").find('option:selected').val();
+                    $('#district').html('<option>请选择县区</option>');
+                    var districtLen = provice[currentProv]["city"][currentCity].district.length;
+                    for (let i = 0; i < districtLen; i++) {
+                        district.append('<option ' + 'value = ' + i + '>' + provice[currentProv]["city"][currentCity].district[i] + '</option>')
+                    }
+                })
+            })
+        </script>
+    </div>
+
+{% endblock %}

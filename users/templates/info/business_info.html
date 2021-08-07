@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}商家信息{% endblock %}
+{% block css %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet"/>{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
+            background-size: 500% 500%;
+            transition: background 3s ease;
+            background-position: 50% 50%;
+        }
+        .btn {
+            margin-top: 50px;
+            color: #ffffff;
+            width: 10em;
+            transition: all .4s;
+            border-radius: 20px;
+            border: 2px solid transparent;
+        }
+
+        .btn-lg {
+            padding: .5rem 1rem;
+            font-size: 2.25rem;
+            line-height: 1.5;
+            border-radius: .3rem;
+        }
+
+        .btn-a {
+            margin-bottom: .8em;
+            background-color: #9caeee;
+        }
+        .character {
+            line-height: 30px; /*li的行高，可以控制li的间距*/
+            font-size: 20px; /*li内文字的大小*/
+            padding-left: 20px; /*li内文字距离左边的距离*/
+            list-style: none; /*去调li的点 ,一般不用li自带的点*/
+        }
+    </style>
+    <div class="container">
+        <div class="info_con clearfix">
+            <h2 class="common_title2">基本信息</h2>
+            <div style="margin-top: 50px"></div>
+            <ul class="business_info_list character">
+                <li><span>商家名：</span>{{ boss.company }}</li>
+                <li><span>用户名：</span>{{ user.name }}</li>
+                <li><span>用户ID：</span>{{ user.id }}</li>
+                <li><span>商家ID：</span>{{ boss.id }}</li>
+                <li><span>商家地址:</span>{{ boss.province }}
+                    <span></span>{{ boss.city }}
+                    <span></span>{{ boss.district }}</li>
+                    <li><span>详细地址：</span>{{ boss.address }}</li>
+                <li><span>电话：</span>{{ boss.tel }}</li>
+                <li><span>商家入驻时间：</span>{{ boss.b_time }}</li>
+            </ul>
+        </div>
+        <div class="father">
+        <div class="btn btn-lg btn-a">
+            <a href="/mygood/">商品管理</a>
+        </div>
+        <div class="btn btn-lg btn-a">
+            <a href="/sale/">销售管理</a>
+        </div>
+        </div>
+    </div>
+{% endblock %}

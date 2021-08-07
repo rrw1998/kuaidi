@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}用户信息{% endblock %}
+{% block css %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet"/>{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
+            background-size: 500% 500%;
+            transition: background 3s ease;
+            background-position: 50% 50%;
+        }
+
+        .character {
+            line-height: 30px; /*li的行高，可以控制li的间距*/
+            font-size: 20px; /*li内文字的大小*/
+            padding-left: 20px; /*li内文字距离左边的距离*/
+            list-style: none; /*去调li的点 ,一般不用li自带的点*/
+        }
+    </style>
+    <div class="container">
+        <div class="info_con clearfix">
+            <h3 class="common_title2">基本信息</h3>
+            <div style="margin-top: 50px"></div>
+            <ul class="user_info_list character">
+                {% for line in user_list %}
+                    <li><span>用户名：</span>{{ line.name }}</li>
+                    <li><span>用户ID：</span>{{ line.id }}</li>
+                    <li><span>email：</span>{{ line.email }}</li>
+                    <li><span>性别：</span>{{ line.sex }}</li>
+                    <li><span>注册时间：</span>{{ line.c_time }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

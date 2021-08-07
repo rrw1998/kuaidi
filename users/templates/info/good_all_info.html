@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}商品信息{% endblock %}
+{% block css %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet"/>{% endblock %}
+
+
+{% block content %}
+
+    <style>
+        body {
+            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
+            background-size: 500% 500%;
+            transition: background 3s ease;
+            background-position: 50% 50%;
+        }
+
+    </style>
+    <div class="container">
+        <h2>商品浏览</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>商品号</td>
+                <td>商品名称</td>
+                <td>商家名称</td>
+                <td>商品价格</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ord in show_goods %}
+                <tr>
+                    <td>{{ ord.g_id }}</td>
+                    <td>{{ ord.g_name }}</td>
+                    <td>{{ ord.shujinn }}</td>
+                    <td>{{ ord.g_price }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="pages" class="text-center" >
+        <nav>
+            <ul class="pagination">
+                <li class="step-links">
+                {% if show_goods.has_previous %}
+                    <a class='active' href="?page={{ show_goods.previous_page_number }}">上一页</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ show_goods.number }} of {{ show_goods.paginator.num_pages }}</span>
+
+                {% if show_goods.has_next %}
+                    <a class='active' href="?page={{ show_goods.next_page_number }}">下一页</a>
+                {% endif %}
+                </li></ul></nav></div>
+
+
+
+{% endblock %}

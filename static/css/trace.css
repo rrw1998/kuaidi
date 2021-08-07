@@ -1,0 +1,41 @@
+.juzhong {
+    text-align: center
+}
+
+.thediv {
+    margin: 0 auto;
+    width: 400px;
+    height: 100px;
+    border: 1px;
+    text-align: center
+}
+
+.a-button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #05fad5;
+    color: #333333;
+    padding: 3px 6px 3px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+
+.box a {
+    width: 75px;
+    background: url(http://www.newxing.com/img/201011/button1.gif);
+    border: 0;
+    height: 21px;
+    display: -moz-inline-box;
+    display: inline-block;
+    font-size: 13px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 21px;
+}
+
+.box a:hover {
+    background: url(http://www.newxing.com/img/201011/button1.gif) 0 -21px;
+}
+

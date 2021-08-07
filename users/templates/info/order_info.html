@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}订单信息{% endblock %}
+{% block css %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet"/>{% endblock %}
+
+
+{% block content %}
+    <style>
+        body {
+            background: linear-gradient(to right, #ffdde1, #ee9ca7, #a7bfe8, #6190e8);
+            background-size: 500% 500%;
+            transition: background 3s ease;
+            background-position: 50% 50%;
+        }
+    </style>
+    <div class="container">
+        <table class="table table-bordered">
+        <h2>订单管理</h2>
+            <thead>
+            <tr>
+                <td>订单号</td>
+                <td>订单状态</td>
+                <td>商品</td>
+                <td>商品数量</td>
+                <td>下单时间</td>
+                <td>总价格</td>
+                <td>查看</td>
+                <td>管理</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ord in order %}
+                <tr>
+                    <td>{{ ord.wl_code }}</td>
+                    <td>{{ ord.get_status_display }}</td>
+                    <td>{{ ord.good }}</td>
+                    <td>{{ ord.gnum }}</td>
+                    <td>{{ ord.time }}</td>
+                    <td>{{ ord.price }}</td>
+                    <td><a href="{% url 'traces:traceInfo' ord.id %}">物流查看</a></td>
+                    <td><a onclick="return deleteJob();" href="{% url 'goods:delOrder' ord.id %}">删除</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="pages" class="text-center" >
+        <nav>
+            <ul class="pagination">
+                <li class="step-links">
+                {% if order.has_previous %}
+                    <a class='active' href="?page={{ order.previous_page_number }}">上一页</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ order.number }} of {{ order.paginator.num_pages }}</span>
+
+                {% if order.has_next %}
+                    <a class='active' href="?page={{ order.next_page_number }}">下一页</a>
+                {% endif %}
+                </li></ul></nav></div>
+    <script type="text/javascript">
+		function deleteJob()
+		{
+		     if(confirm("确定要删除吗?"))
+		     {
+		         return true;
+		     }else{
+		         return false;
+			 }
+		}
+    </script>
+
+{% endblock %}
